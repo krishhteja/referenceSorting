@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>I'm Bored</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script>
+            function sendSortReq(){
+                var data = $("#dataToSort").val();
+                var lines = data.split("\n");
+                
+                //Sort and remove duplicates    
+                var sorted = lines.sort().filter(function(item, pos, ary) {
+                    return !pos || item != ary[pos - 1];
+                });
+            
+                //Write the whole output as string
+                print = ''
+                //sorted.length works fine but in case of space, it gives a +1 in total while printing
+                var count = 0
+                for(var i = 0; i < sorted.length; i++){
+                    if(sorted[i] != ''){
+                        count++;
+                        print = print + sorted[i] + "\n";
+                    }
+                }
+                $("#count").html("Total " + count);
+                //Print the output to textarea
+                $("#sortedData").html(print);
+            }
+        </script>
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-light bg-light">
+            <a class="navbar-brand" href="/">Pass time</a>
+        </nav>
+        <div class = "container-fluid" style = "margin-top:100px">
+            <div class = "col-md-4">
+                <textarea id = "dataToSort" rows = "20" cols = "80" placeholder = "Enter your data here"></textarea>
+            </div>
+        </div>
+        <div class = "container-fluid">
+            <div class = "col-md-4">&nbsp;</div>
+            <div class = "col-md-4"><input type = "button" value = "submit" onclick = "sendSortReq()" class = "btn btn-primary"></div>
+            <div class = "col-md-4" id = "count"></div>
+        </div>
+        <div class = "container-fluid">
+            <div class = "col-md-4">
+                <textarea id = "sortedData" rows = "20" cols = "80" placeholder = "Output will be populated here"></textarea>
+            </div>
+        </div>
+    </body>
+</html>
